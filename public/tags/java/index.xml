@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Java on 猿客随笔</title>
+    <link>http://localhost:1313/blog/tags/java/</link>
+    <description>Recent content in Java on 猿客随笔</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <managingEditor>contact@monkeyke.com (MonkeyKe)</managingEditor>
+    <webMaster>contact@monkeyke.com (MonkeyKe)</webMaster>
+    <lastBuildDate>Sun, 27 Oct 2024 10:00:00 +0800</lastBuildDate>
+    <atom:link href="http://localhost:1313/blog/tags/java/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>深入浅出 Spring：从核心原理到 Spring Boot 实战，一篇通关！</title>
+      <link>http://localhost:1313/blog/posts/spring-springboot-post/</link>
+      <pubDate>Sun, 27 Oct 2024 10:00:00 +0800</pubDate><author>contact@monkeyke.com (MonkeyKe)</author>
+      <guid>http://localhost:1313/blog/posts/spring-springboot-post/</guid>
+      <description>&lt;p&gt;&lt;img&#xA;        class=&#34;lazyload&#34;&#xA;        src=&#34;http://localhost:1313/blog/svg/loading.min.svg&#34;&#xA;        data-src=&#34;http://localhost:1313/blog/posts/spring-springboot-post/1.png&#34;&#xA;        data-srcset=&#34;http://localhost:1313/blog/posts/spring-springboot-post/1.png, http://localhost:1313/blog/posts/spring-springboot-post/1.png 1.5x, http://localhost:1313/blog/posts/spring-springboot-post/1.png 2x&#34;&#xA;        data-sizes=&#34;auto&#34;&#xA;        alt=&#34;/blog/posts/spring-springboot-post/1.png&#34;&#xA;        title=&#34;Spring框架封面图&#34; width=&#34;671&#34; height=&#34;500&#34; /&gt;&lt;/p&gt;&#xA;&lt;p&gt;在 Java 的世界里，如果你只选择一个框架来学习，那答案几乎毫无疑问是 &lt;strong&gt;Spring&lt;/strong&gt;。自 2003 年诞生以来，它如同一位技艺精湛的工匠，彻底重塑了 Java 企业级应用的开发模式。它优雅地解决了传统开发中令人头疼的代码耦合、笨重臃肿等问题，成为了 Java 后端开发领域当之无愧的基石。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

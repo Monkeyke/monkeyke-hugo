@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head><script src="/blog/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=blog/livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Vue 3 状态管理终极指南：从入门到精通 Pinia - 猿客随笔</title><meta name="Description" content="分享技术、思考与生活点滴"><meta property="og:url" content="http://localhost:1313/blog/posts/vue-pina-post/">
+  <meta property="og:site_name" content="猿客随笔">
+  <meta property="og:title" content="Vue 3 状态管理终极指南：从入门到精通 Pinia">
+  <meta property="og:description" content="如果你正在使用 Vue 3，并且还在纠结于状态管理方案，那么请停下脚步，认识一下 Pinia。作为 Vuex 的下一代替代者，Pinia 由 Vue 核心团队成员亲自操刀，并已成为 Vue 3 官方推荐的状态管理库。它以其惊人的简洁性、完整的 TypeScript 支持和直观的设计理念，正在迅速赢得开发者的青睐。">
+  <meta property="og:locale" content="zh_cn">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-08-03T05:05:50+08:00">
+    <meta property="article:modified_time" content="2025-08-03T05:05:50+08:00">
+    <meta property="article:tag" content="Pinia">
+    <meta property="article:tag" content="Vue">
+    <meta property="article:tag" content="前端">
+    <meta property="og:image" content="http://localhost:1313/images/og-image.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="http://localhost:1313/images/og-image.png">
+  <meta name="twitter:title" content="Vue 3 状态管理终极指南：从入门到精通 Pinia">
+  <meta name="twitter:description" content="如果你正在使用 Vue 3，并且还在纠结于状态管理方案，那么请停下脚步，认识一下 Pinia。作为 Vuex 的下一代替代者，Pinia 由 Vue 核心团队成员亲自操刀，并已成为 Vue 3 官方推荐的状态管理库。它以其惊人的简洁性、完整的 TypeScript 支持和直观的设计理念，正在迅速赢得开发者的青睐。">
+<meta name="application-name" content="My cool site">
+<meta name="apple-mobile-web-app-title" content="My cool site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="icon" href="/favicon.svg"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://localhost:1313/blog/posts/vue-pina-post/" /><link rel="prev" href="http://localhost:1313/blog/posts/spring-nacos-post/" /><link rel="stylesheet" href="/blog/css/style.min.css"><link rel="preload" href="/blog/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/blog/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/blog/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/blog/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Vue 3 状态管理终极指南：从入门到精通 Pinia",
+        "inLanguage": "zh-cn",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/localhost:1313\/blog\/posts\/vue-pina-post\/"
+        },"genre": "posts","keywords": "Pinia, Vue, 前端","wordcount":  1699 ,
+        "url": "http:\/\/localhost:1313\/blog\/posts\/vue-pina-post\/","datePublished": "2025-08-03T05:05:50+08:00","dateModified": "2025-08-03T05:05:50+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "MonkeyKe"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/blog/" title="猿客随笔"><span id="id-1" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/blog/posts/"><i class='fa-solid fa-archive fa-fw'></i> 文章 </a><a class="menu-item" href="/blog/tags/"><i class='fa-solid fa-tags fa-fw'></i> 标签 </a><a class="menu-item" href="/blog/categories/"><i class='fa-solid fa-folder-tree fa-fw'></i> 分类 </a><a class="menu-item" href="/blog/about/"><i class='fa-solid fa-user-tie fa-fw'></i> 关于我 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a><a href="javascript:void(0);" class="menu-item language" title="选择语言">
+                    <i class="fa fa-globe fa-fw" aria-hidden="true"></i>                      
+                    <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/blog/posts/vue-pina-post/" selected>简体中文</option></select>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/blog/" title="猿客随笔"><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/blog/posts/" title=""><i class='fa-solid fa-archive fa-fw'></i>文章</a><a class="menu-item" href="/blog/tags/" title=""><i class='fa-solid fa-tags fa-fw'></i>标签</a><a class="menu-item" href="/blog/categories/" title=""><i class='fa-solid fa-folder-tree fa-fw'></i>分类</a><a class="menu-item" href="/blog/about/" title=""><i class='fa-solid fa-user-tie fa-fw'></i>关于我</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">
+                    <i class="fa fa-globe fa-fw" aria-hidden="true"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/blog/posts/vue-pina-post/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Vue 3 状态管理终极指南：从入门到精通 Pinia</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/about/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>MonkeyKe</a></span>&nbsp;<span class="post-category">收录于 <a href="/blog/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>技术分享</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-08-03">2025-08-03</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 1699 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 4 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#一为什么选择-pinia告别-vuex-的繁琐"><strong>一、为什么选择 Pinia？告别 Vuex 的繁琐</strong></a></li>
+    <li><a href="#二pinia-的核心三剑客state-getters-actions"><strong>二、Pinia 的核心三剑客：State, Getters, Actions</strong></a></li>
+    <li><a href="#三pinia-快速上手"><strong>三、Pinia 快速上手</strong></a>
+      <ul>
+        <li><a href="#第一步安装与挂载"><strong>第一步：安装与挂载</strong></a></li>
+        <li><a href="#第二步定义你的第一个-store"><strong>第二步：定义你的第一个 Store</strong></a></li>
+        <li><a href="#第三步在组件中优雅地使用"><strong>第三步：在组件中优雅地使用</strong></a></li>
+      </ul>
+    </li>
+    <li><a href="#四pinia-进阶技巧"><strong>四、Pinia 进阶技巧</strong></a>
+      <ul>
+        <li><a href="#41-多种姿势修改-state"><strong>4.1 多种姿势修改 State</strong></a></li>
+        <li><a href="#42-状态持久化"><strong>4.2 状态持久化</strong></a></li>
+        <li><a href="#43-store-间的通讯"><strong>4.3 Store 间的通讯</strong></a></li>
+      </ul>
+    </li>
+    <li><a href="#五pinia-vs-vuex王者之争"><strong>五、Pinia vs. Vuex：王者之争</strong></a></li>
+    <li><a href="#六结语"><strong>六、结语</strong></a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p><img
+        class="lazyload"
+        src="/blog/svg/loading.min.svg"
+        data-src="/blog/posts/vue-pina-post/1.jpg"
+        data-srcset="/blog/posts/vue-pina-post/1.jpg, /blog/posts/vue-pina-post/1.jpg 1.5x, /blog/posts/vue-pina-post/1.jpg 2x"
+        data-sizes="auto"
+        alt="/blog/posts/vue-pina-post/1.jpg"
+        title="pina图片" width="1100" height="690" /></p>
+<p>如果你正在使用 Vue 3，并且还在纠结于状态管理方案，那么请停下脚步，认识一下 Pinia。作为 Vuex 的下一代替代者，Pinia 由 Vue 核心团队成员亲自操刀，并已成为 Vue 3 官方推荐的状态管理库。它以其惊人的简洁性、完整的 TypeScript 支持和直观的设计理念，正在迅速赢得开发者的青睐。</p>
+<p>本文将带你全面了解 Pinia，从核心概念到高级技巧，让你轻松上手，并在项目中发挥其最大威力。</p>
+<h2 id="一为什么选择-pinia告别-vuex-的繁琐"><strong>一、为什么选择 Pinia？告别 Vuex 的繁琐</strong></h2>
+<p>相比于 Vuex，Pinia 带来了许多令人振奋的改进：</p>
+<ul>
+<li><strong>天生 TypeScript 支持</strong>：无需复杂的类型定义，享受完美的自动补全和类型推断。</li>
+<li><strong>极致简洁的 API</strong>：告别 <code>mutations</code>！Actions 支持同步和异步操作，代码更直观，心智负担更小。</li>
+<li><strong>扁平化的模块设计</strong>：每个 Store 都是一个独立的模块，天然具备模块化能力，Store 之间调用非常简单。</li>
+<li><strong>强大的 DevTools 支持</strong>：完美集成 Vue DevTools，无论是 state 变化跟踪还是时间旅行调试，都易如反掌。</li>
+<li><strong>轻量与高效</strong>：体积非常小，且经过优化，对性能影响微乎其微。</li>
+</ul>
+<h2 id="二pinia-的核心三剑客state-getters-actions"><strong>二、Pinia 的核心三剑客：State, Getters, Actions</strong></h2>
+<p>理解 Pinia，只需掌握它的三个核心概念。我们可以用 Vue 组件的概念来类比：</p>
+<ul>
+<li><strong><code>state</code></strong>：相当于组件的 <code>data</code>，是 Store 的数据源，存储着最核心的状态。</li>
+<li><strong><code>getters</code></strong>：相当于组件的 <code>computed</code>，是基于 <code>state</code> 派生出的计算属性，当依赖的 <code>state</code> 变化时会自动更新。</li>
+<li><strong><code>actions</code></strong>：相当于组件的 <code>methods</code>，用于封装业务逻辑，可以修改 <code>state</code>。它既可以处理同步逻辑，也可以处理异步逻辑（如 API 请求）。</li>
+</ul>
+<h2 id="三pinia-快速上手"><strong>三、Pinia 快速上手</strong></h2>
+<p>让我们通过一个经典的计数器案例，感受 Pinia 的魅力。</p>
+<h3 id="第一步安装与挂载"><strong>第一步：安装与挂载</strong></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># 使用 npm 或 yarn 安装</span>
+</span></span><span style="display:flex;"><span>npm install pinia
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># yarn add pinia</span>
+</span></span></code></pre></div><p>在你的 <code>main.ts</code> (或 <code>main.js</code>) 中引入并使用它。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">createApp</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;vue&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">createPinia</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;pinia&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">App</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;./App.vue&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">app</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">createApp</span>(<span style="color:#a6e22e">App</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 创建 Pinia 实例并挂载
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">app</span>.<span style="color:#a6e22e">use</span>(<span style="color:#a6e22e">createPinia</span>())
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">app</span>.<span style="color:#a6e22e">mount</span>(<span style="color:#e6db74">&#39;#app&#39;</span>)
+</span></span></code></pre></div><h3 id="第二步定义你的第一个-store"><strong>第二步：定义你的第一个 Store</strong></h3>
+<p>在 <code>src/stores</code> 目录下创建一个 <code>counter.ts</code> 文件。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">defineStore</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;pinia&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 使用 defineStore 定义一个 store
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// 第一个参数是 store 的唯一 ID，Pinia 用它来连接 DevTools
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useCounterStore</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">defineStore</span>(<span style="color:#e6db74">&#39;counter&#39;</span>, {
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// state: 定义状态的地方，必须是函数形式以避免服务端渲染的交叉请求污染
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">state</span><span style="color:#f92672">:</span> () <span style="color:#f92672">=&gt;</span> ({
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">count</span>: <span style="color:#66d9ef">0</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;Pinia&#39;</span>
+</span></span><span style="display:flex;"><span>  }),
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// getters: 类似计算属性
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">getters</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 接收 state 作为第一个参数
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">doubleCount</span><span style="color:#f92672">:</span> (<span style="color:#a6e22e">state</span>) <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">count</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">2</span>,
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 也可以通过 this 访问 store 实例的其他属性，但需要显式定义返回类型
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">greeting</span>()<span style="color:#f92672">:</span> <span style="color:#66d9ef">string</span> {
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> <span style="color:#e6db74">`Hello, </span><span style="color:#e6db74">${</span><span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span><span style="color:#e6db74">}</span><span style="color:#e6db74">! My double count is </span><span style="color:#e6db74">${</span><span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">doubleCount</span><span style="color:#e6db74">}</span><span style="color:#e6db74">.`</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// actions: 类似方法
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">actions</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">increment() {</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e">// 在 action 中可以直接通过 this 修改 state
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>      <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">count</span><span style="color:#f92672">++</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">async</span> <span style="color:#a6e22e">incrementAsync() {</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e">// 支持异步操作
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>      <span style="color:#66d9ef">await</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Promise</span>(<span style="color:#a6e22e">resolve</span> <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">setTimeout</span>(<span style="color:#a6e22e">resolve</span>, <span style="color:#ae81ff">1000</span>))
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">increment</span>() <span style="color:#75715e">// 可以直接调用其他 action
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>})
+</span></span></code></pre></div><h3 id="第三步在组件中优雅地使用"><strong>第三步：在组件中优雅地使用</strong></h3>
+<p>在任何 Vue 组件中，你都可以轻松地调用 Store。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-vue" data-lang="vue"><span style="display:flex;"><span>&lt;<span style="color:#f92672">template</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">p</span>&gt;<span style="color:#a6e22e">Count</span><span style="color:#f92672">:</span> {{ <span style="color:#a6e22e">counterStore</span>.<span style="color:#a6e22e">count</span> }}&lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">p</span>&gt;<span style="color:#a6e22e">Double</span> <span style="color:#a6e22e">Count</span><span style="color:#f92672">:</span> {{ <span style="color:#a6e22e">counterStore</span>.<span style="color:#a6e22e">doubleCount</span> }}&lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">p</span>&gt;{{ <span style="color:#a6e22e">counterStore</span>.<span style="color:#a6e22e">greeting</span> }}&lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">button</span> <span style="color:#f92672">@click</span><span style="color:#e6db74">=&#34;counterStore.increment&#34;</span>&gt;<span style="color:#a6e22e">Increment</span>&lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">button</span> <span style="color:#f92672">@click</span><span style="color:#e6db74">=&#34;counterStore.incrementAsync&#34;</span>&gt;<span style="color:#a6e22e">Increment</span> <span style="color:#a6e22e">Async</span>&lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">template</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">setup</span> <span style="color:#a6e22e">lang</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;ts&#34;</span>&gt;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">useCounterStore</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;./stores/counter&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 在 setup 中调用 useStore() 函数即可获取 store 实例
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">counterStore</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useCounterStore</span>()
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">script</span>&gt;
+</span></span></code></pre></div><h2 id="四pinia-进阶技巧"><strong>四、Pinia 进阶技巧</strong></h2>
+<h3 id="41-多种姿势修改-state"><strong>4.1 多种姿势修改 State</strong></h3>
+<p>Pinia 提供了多种灵活的方式来修改状态：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#75715e">// 方式1：最直接的修改
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">counterStore</span>.<span style="color:#a6e22e">count</span><span style="color:#f92672">++</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 方式2：通过 action（推荐，便于逻辑封装）
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">counterStore</span>.<span style="color:#a6e22e">increment</span>()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 方式3：使用 $patch 批量修改（对象形式，性能更优）
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">counterStore</span>.<span style="color:#a6e22e">$patch</span>({
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">count</span>: <span style="color:#66d9ef">counterStore.count</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;New Name&#39;</span>
+</span></span><span style="display:flex;"><span>})
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 方式4：使用 $patch 批量修改（函数形式，适用于复杂逻辑）
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">counterStore</span>.<span style="color:#a6e22e">$patch</span>((<span style="color:#a6e22e">state</span>) <span style="color:#f92672">=&gt;</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">count</span> <span style="color:#f92672">+=</span> <span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;Updated Name&#39;</span>
+</span></span><span style="display:flex;"><span>})
+</span></span></code></pre></div><h3 id="42-状态持久化"><strong>4.2 状态持久化</strong></h3>
+<p>想让用户刷新页面后数据依然存在？使用 <code>pinia-plugin-persistedstate</code> 插件即可轻松实现。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>npm install pinia-plugin-persistedstate
+</span></span></code></pre></div><p>在 <code>main.ts</code> 中注册插件：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">createPinia</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;pinia&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">piniaPluginPersistedstate</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;pinia-plugin-persistedstate&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">pinia</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">createPinia</span>()
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">pinia</span>.<span style="color:#a6e22e">use</span>(<span style="color:#a6e22e">piniaPluginPersistedstate</span>) <span style="color:#75715e">// 注册插件
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// ... app.use(pinia)
+</span></span></span></code></pre></div><p>在需要持久化的 Store 中开启 <code>persist</code> 选项：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useCounterStore</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">defineStore</span>(<span style="color:#e6db74">&#39;counter&#39;</span>, {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">state</span><span style="color:#f92672">:</span> () <span style="color:#f92672">=&gt;</span> ({ <span style="color:#a6e22e">count</span>: <span style="color:#66d9ef">0</span> }),
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// 开启持久化，默认存储在 localStorage
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">persist</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>})
+</span></span></code></pre></div><h3 id="43-store-间的通讯"><strong>4.3 Store 间的通讯</strong></h3>
+<p>在 Pinia 中，Store 之间的调用就跟普通函数调用一样简单。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#75715e">// stores/user.ts
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">defineStore</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;pinia&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">useCounterStore</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;./counter&#39;</span> <span style="color:#75715e">// 直接引入 counter store
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useUserStore</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">defineStore</span>(<span style="color:#e6db74">&#39;user&#39;</span>, {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">actions</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">login() {</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;User logged in!&#39;</span>)
+</span></span><span style="display:flex;"><span>      <span style="color:#75715e">// 获取 counter store 实例并调用它的 action
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>      <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">counterStore</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useCounterStore</span>()
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">counterStore</span>.<span style="color:#a6e22e">increment</span>()
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>})
+</span></span></code></pre></div><h2 id="五pinia-vs-vuex王者之争"><strong>五、Pinia vs. Vuex：王者之争</strong></h2>
+<table>
+  <thead>
+      <tr>
+          <th>特性</th>
+          <th>Pinia</th>
+          <th>Vuex (4.x)</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>Mutations</strong></td>
+          <td><strong>无</strong>，Actions 直接修改 State</td>
+          <td><strong>有</strong>，必须通过 Mutations 修改 State</td>
+      </tr>
+      <tr>
+          <td><strong>TypeScript</strong></td>
+          <td><strong>原生完美支持</strong>，无需额外配置</td>
+          <td>需要复杂的类型体操和额外配置</td>
+      </tr>
+      <tr>
+          <td><strong>模块化</strong></td>
+          <td><strong>天然模块化</strong>，每个 Store 就是一个模块</td>
+          <td>需要通过 <code>modules</code> 选项配置，嵌套较深</td>
+      </tr>
+      <tr>
+          <td><strong>代码简洁度</strong></td>
+          <td><strong>极高</strong>，模板代码少，心智负担低</td>
+          <td>较低，概念多，模板代码多</td>
+      </tr>
+      <tr>
+          <td><strong>Vue 3 兼容性</strong></td>
+          <td><strong>完美契合</strong>，为 Composition API 设计</td>
+          <td>较好，但设计理念更偏向 Options API</td>
+      </tr>
+  </tbody>
+</table>
+<p>对于新的 Vue 3 项目，答案是明确的：<strong>Pinia 是更现代、更简洁、更强大的选择</strong>。</p>
+<h2 id="六结语"><strong>六、结语</strong></h2>
+<p>Pinia 以其优雅的设计和出色的开发体验，真正地简化了 Vue 的状态管理。它不仅解决了 Vuex 的许多痛点，还完美融入了 Vue 3 的生态系统。如果你还没有尝试过，不妨在下一个项目中拥抱 Pinia，相信它会给你带来惊喜。</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2025-08-03</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://localhost:1313/blog/posts/vue-pina-post/" data-title="Vue 3 状态管理终极指南：从入门到精通 Pinia" data-hashtags="Pinia,Vue,前端"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://localhost:1313/blog/posts/vue-pina-post/" data-hashtag="Pinia"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="http://localhost:1313/blog/posts/vue-pina-post/" data-title="Vue 3 状态管理终极指南：从入门到精通 Pinia"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://localhost:1313/blog/posts/vue-pina-post/" data-title="Vue 3 状态管理终极指南：从入门到精通 Pinia"><i data-svg-src="/blog/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://localhost:1313/blog/posts/vue-pina-post/" data-title="Vue 3 状态管理终极指南：从入门到精通 Pinia"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/blog/tags/pinia/">Pinia</a>,&nbsp;<a href="/blog/tags/vue/">Vue</a>,&nbsp;<a href="/blog/tags/%E5%89%8D%E7%AB%AF/">前端</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/blog/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/blog/posts/spring-nacos-post/" class="prev" rel="prev" title="深入浅出 Spring Cloud Nacos：一站式搞定服务发现与配置管理"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>深入浅出 Spring Cloud Nacos：一站式搞定服务发现与配置管理</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2024 - 2025</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/about/" target="_blank">MonkeyKe</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener norefferer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp">皖ICP备2024059714号-1</span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/blog/lib/lightgallery/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="/blog/lib/katex/katex.min.css"><script type="text/javascript" src="/blog/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/blog/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/blog/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/blog/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/blog/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/blog/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/blog/lib/lightgallery/plugins/thumbnail/lg-thumbnail.min.js"></script><script type="text/javascript" src="/blog/lib/lightgallery/plugins/zoom/lg-zoom.min.js"></script><script type="text/javascript" src="/blog/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/blog/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/blog/lib/typeit/index.umd.js"></script><script type="text/javascript" src="/blog/lib/katex/katex.min.js"></script><script type="text/javascript" src="/blog/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/blog/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/blog/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":20},"comment":{},"data":{"id-1":"MonkeyKe","id-2":"MonkeyKe"},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/blog/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/blog/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/blog/js/theme.min.js"></script></body>
+</html>

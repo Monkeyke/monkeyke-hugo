@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Vue on 猿客随笔</title>
+    <link>http://localhost:1313/blog/tags/vue/</link>
+    <description>Recent content in Vue on 猿客随笔</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <managingEditor>contact@monkeyke.com (MonkeyKe)</managingEditor>
+    <webMaster>contact@monkeyke.com (MonkeyKe)</webMaster>
+    <lastBuildDate>Sun, 03 Aug 2025 05:05:50 +0800</lastBuildDate>
+    <atom:link href="http://localhost:1313/blog/tags/vue/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Vue 3 状态管理终极指南：从入门到精通 Pinia</title>
+      <link>http://localhost:1313/blog/posts/vue-pina-post/</link>
+      <pubDate>Sun, 03 Aug 2025 05:05:50 +0800</pubDate><author>contact@monkeyke.com (MonkeyKe)</author>
+      <guid>http://localhost:1313/blog/posts/vue-pina-post/</guid>
+      <description>&lt;p&gt;&lt;img&#xA;        class=&#34;lazyload&#34;&#xA;        src=&#34;http://localhost:1313/blog/svg/loading.min.svg&#34;&#xA;        data-src=&#34;http://localhost:1313/blog/posts/vue-pina-post/1.jpg&#34;&#xA;        data-srcset=&#34;http://localhost:1313/blog/posts/vue-pina-post/1.jpg, http://localhost:1313/blog/posts/vue-pina-post/1.jpg 1.5x, http://localhost:1313/blog/posts/vue-pina-post/1.jpg 2x&#34;&#xA;        data-sizes=&#34;auto&#34;&#xA;        alt=&#34;/blog/posts/vue-pina-post/1.jpg&#34;&#xA;        title=&#34;pina图片&#34; width=&#34;1100&#34; height=&#34;690&#34; /&gt;&lt;/p&gt;&#xA;&lt;p&gt;如果你正在使用 Vue 3，并且还在纠结于状态管理方案，那么请停下脚步，认识一下 Pinia。作为 Vuex 的下一代替代者，Pinia 由 Vue 核心团队成员亲自操刀，并已成为 Vue 3 官方推荐的状态管理库。它以其惊人的简洁性、完整的 TypeScript 支持和直观的设计理念，正在迅速赢得开发者的青睐。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

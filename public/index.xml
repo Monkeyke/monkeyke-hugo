@@ -1,0 +1,37 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>猿客随笔</title>
+        <link>http://localhost:1313/blog/</link>
+        <description>分享技术、思考与生活点滴</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-cn</language><managingEditor>contact@monkeyke.com (MonkeyKe)</managingEditor>
+            <webMaster>contact@monkeyke.com (MonkeyKe)</webMaster><lastBuildDate>Sun, 03 Aug 2025 05:05:50 &#43;0800</lastBuildDate>
+            <atom:link href="http://localhost:1313/blog/index.xml" rel="self" type="application/rss+xml" />
+        <item>
+    <title>Vue 3 状态管理终极指南：从入门到精通 Pinia</title>
+    <link>http://localhost:1313/blog/posts/vue-pina-post/</link>
+    <pubDate>Sun, 03 Aug 2025 05:05:50 &#43;0800</pubDate>
+    <author>MonkeyKe</author>
+    <guid>http://localhost:1313/blog/posts/vue-pina-post/</guid>
+    <description><![CDATA[<p></p>
+<p>如果你正在使用 Vue 3，并且还在纠结于状态管理方案，那么请停下脚步，认识一下 Pinia。作为 Vuex 的下一代替代者，Pinia 由 Vue 核心团队成员亲自操刀，并已成为 Vue 3 官方推荐的状态管理库。它以其惊人的简洁性、完整的 TypeScript 支持和直观的设计理念，正在迅速赢得开发者的青睐。</p>]]></description>
+</item>
+<item>
+    <title>深入浅出 Spring Cloud Nacos：一站式搞定服务发现与配置管理</title>
+    <link>http://localhost:1313/blog/posts/spring-nacos-post/</link>
+    <pubDate>Fri, 01 Aug 2025 05:05:50 &#43;0800</pubDate>
+    <author>MonkeyKe</author>
+    <guid>http://localhost:1313/blog/posts/spring-nacos-post/</guid>
+    <description><![CDATA[<p></p>
+<p>在微服务架构的浪潮中，服务的动态管理和配置的集中化成为了开发者必须面对的核心挑战。此时，Nacos 如同瑞士军刀一般，为我们提供了优雅而强大的一站式解决方案。本文将带你从零开始，深入理解 Nacos 的核心功能，并实战演示如何将其无缝集成到 Spring Cloud 项目中。</p>]]></description>
+</item>
+<item>
+    <title>深入浅出 Spring：从核心原理到 Spring Boot 实战，一篇通关！</title>
+    <link>http://localhost:1313/blog/posts/spring-springboot-post/</link>
+    <pubDate>Sun, 27 Oct 2024 10:00:00 &#43;0800</pubDate>
+    <author>MonkeyKe</author>
+    <guid>http://localhost:1313/blog/posts/spring-springboot-post/</guid>
+    <description><![CDATA[<p></p>
+<p>在 Java 的世界里，如果你只选择一个框架来学习，那答案几乎毫无疑问是 <strong>Spring</strong>。自 2003 年诞生以来，它如同一位技艺精湛的工匠，彻底重塑了 Java 企业级应用的开发模式。它优雅地解决了传统开发中令人头疼的代码耦合、笨重臃肿等问题，成为了 Java 后端开发领域当之无愧的基石。</p>]]></description>
+</item>
+</channel>
+</rss>

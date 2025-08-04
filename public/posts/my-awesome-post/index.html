@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head><script src="/blog/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=blog/livereload" data-no-instant defer></script>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>深入浅出 Spring：从核心原理到 Spring Boot 实战，一篇通关！ - 猿客随笔</title><meta name="Description" content="本文将带你系统性地梳理 Spring 框架的核心知识，从两大基石 IoC 和 AOP，到现代化的开发利器 Spring Boot，再到庞大的 Spring 生态，助你构建完整的知识体系。"><meta property="og:url" content="http://localhost:1313/blog/posts/my-awesome-post/">
+  <meta property="og:site_name" content="猿客随笔">
+  <meta property="og:title" content="深入浅出 Spring：从核心原理到 Spring Boot 实战，一篇通关！">
+  <meta property="og:description" content="本文将带你系统性地梳理 Spring 框架的核心知识，从两大基石 IoC 和 AOP，到现代化的开发利器 Spring Boot，再到庞大的 Spring 生态，助你构建完整的知识体系。">
+  <meta property="og:locale" content="zh_cn">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2024-10-27T10:00:00+08:00">
+    <meta property="article:modified_time" content="2024-10-27T10:00:00+08:00">
+    <meta property="article:tag" content="Java">
+    <meta property="article:tag" content="Spring">
+    <meta property="article:tag" content="Spring Boot">
+    <meta property="article:tag" content="后端">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="深入浅出 Spring：从核心原理到 Spring Boot 实战，一篇通关！">
+  <meta name="twitter:description" content="本文将带你系统性地梳理 Spring 框架的核心知识，从两大基石 IoC 和 AOP，到现代化的开发利器 Spring Boot，再到庞大的 Spring 生态，助你构建完整的知识体系。">
+<meta name="application-name" content="My cool site">
+<meta name="apple-mobile-web-app-title" content="My cool site"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://localhost:1313/blog/posts/my-awesome-post/" /><link rel="next" href="http://localhost:1313/blog/posts/spring-nacos-post/" /><link rel="stylesheet" href="/blog/css/style.min.css"><link rel="preload" href="/blog/lib/fontawesome-free/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/blog/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/blog/lib/animate/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="/blog/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "深入浅出 Spring：从核心原理到 Spring Boot 实战，一篇通关！",
+        "inLanguage": "zh-cn",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/localhost:1313\/blog\/posts\/my-awesome-post\/"
+        },"genre": "posts","keywords": "Java, Spring, Spring Boot, 后端","wordcount":  3022 ,
+        "url": "http:\/\/localhost:1313\/blog\/posts\/my-awesome-post\/","datePublished": "2024-10-27T10:00:00+08:00","dateModified": "2024-10-27T10:00:00+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "MonkeyKe"
+            },"description": "本文将带你系统性地梳理 Spring 框架的核心知识，从两大基石 IoC 和 AOP，到现代化的开发利器 Spring Boot，再到庞大的 Spring 生态，助你构建完整的知识体系。"
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/blog/" title="猿客随笔"><span id="id-1" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/blog/posts/"> 📰 文章 </a><a class="menu-item" href="/blog/tags/"> 🏷️ 标签 </a><a class="menu-item" href="/blog/categories/"> 🗂️ 分类 </a><a class="menu-item" href="/blog/about/"> 🙋‍♂️ 关于我 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a><a href="javascript:void(0);" class="menu-item language" title="选择语言">
+                    <i class="fa fa-globe fa-fw" aria-hidden="true"></i>                      
+                    <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/blog/posts/my-awesome-post/" selected>简体中文</option></select>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/blog/" title="猿客随笔"><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/blog/posts/" title="">📰 文章</a><a class="menu-item" href="/blog/tags/" title="">🏷️ 标签</a><a class="menu-item" href="/blog/categories/" title="">🗂️ 分类</a><a class="menu-item" href="/blog/about/" title="">🙋‍♂️ 关于我</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">
+                    <i class="fa fa-globe fa-fw" aria-hidden="true"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/blog/posts/my-awesome-post/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">深入浅出 Spring：从核心原理到 Spring Boot 实战，一篇通关！</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/about/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>MonkeyKe</a></span>&nbsp;<span class="post-category">收录于 <a href="/blog/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>技术分享</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-10-27">2024-10-27</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 3022 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 7 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#一为何-spring-能长盛不衰三大核心优势">一、为何 Spring 能长盛不衰？三大核心优势</a></li>
+    <li><a href="#二剖析-spring-的心脏核心模块解析">二、剖析 Spring 的“心脏”：核心模块解析</a>
+      <ul>
+        <li><a href="#21-spring-core控制反转ioc的魔法容器">2.1 Spring Core：控制反转（IoC）的魔法容器</a></li>
+        <li><a href="#22-spring-aop优雅分离横切关注点">2.2 Spring AOP：优雅分离横切关注点</a></li>
+        <li><a href="#23-spring-mvc经典的-web-开发框架">2.3 Spring MVC：经典的 Web 开发框架</a></li>
+      </ul>
+    </li>
+    <li><a href="#三spring-boot化繁为简让开发飞起来">三、Spring Boot：化繁为简，让开发“飞”起来</a>
+      <ul>
+        <li><a href="#31-spring-boot-的核心特性">3.1 Spring Boot 的核心特性</a></li>
+        <li><a href="#32-快速入门3-步创建-restful-接口">3.2 快速入门：3 步创建 RESTful 接口</a></li>
+      </ul>
+    </li>
+    <li><a href="#四spring-的全家桶庞大的生态系统">四、Spring 的“全家桶”：庞大的生态系统</a></li>
+    <li><a href="#五避坑指南与最佳实践">五、避坑指南与最佳实践</a></li>
+    <li><a href="#六总结与展望">六、总结与展望</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p><img
+        class="lazyload"
+        src="/blog/svg/loading.min.svg"
+        data-src="/blog/posts/my-awesome-post/1.png"
+        data-srcset="/blog/posts/my-awesome-post/1.png, /blog/posts/my-awesome-post/1.png 1.5x, /blog/posts/my-awesome-post/1.png 2x"
+        data-sizes="auto"
+        alt="/blog/posts/my-awesome-post/1.png"
+        title="Spring框架封面图" width="671" height="500" /></p>
+<p>在 Java 的世界里，如果你只选择一个框架来学习，那答案几乎毫无疑问是 <strong>Spring</strong>。自 2003 年诞生以来，它如同一位技艺精湛的工匠，彻底重塑了 Java 企业级应用的开发模式。它优雅地解决了传统开发中令人头疼的代码耦合、笨重臃肿等问题，成为了 Java 后端开发领域当之无愧的基石。</p>
+<p>本文将带你进行一次 Spring 的深度之旅，从它的核心设计哲学出发，逐步探索其关键模块、现代化的开发利器 Spring Boot，以及那个庞大而繁荣的生态系统。</p>
+<h2 id="一为何-spring-能长盛不衰三大核心优势">一、为何 Spring 能长盛不衰？三大核心优势</h2>
+<p>Spring 的成功并非偶然，其核心优势在于它始终遵循着一套先进的设计哲学。</p>
+<blockquote>
+<p>Spring 的两大灵魂基石是：<strong>依赖注入（DI）</strong> 和 <strong>面向切面编程（AOP）</strong>。前者负责解耦组件，后者负责分离业务关注点。</p></blockquote>
+<p>这套组合拳带来了三大显而易见的优势：</p>
+<ul>
+<li><strong>极致的松耦合架构</strong>：通过控制反转（IoC）容器，对象的创建和依赖关系的管理权被交给了 Spring。开发者不再是组件的“生产者”，而是“消费者”，只需告诉 Spring “我需要什么”，Spring 就会在恰当的时候提供给你。这大大降低了代码间的耦合度。</li>
+<li><strong>轻量级与非侵入式设计</strong>：Spring 核心容器本身非常小巧，更重要的是，你可以自由选择使用 Spring 的哪个部分。你的业务对象（POJO）无需继承任何特定的类或实现特定的接口，保持了代码的纯粹性。</li>
+<li><strong>强大的生态与扩展性</strong>：Spring 从未固步自封。它构建了一个庞大的“全家桶”生态，从 Web 开发（Spring MVC）、数据访问（Spring Data）到微服务（Spring Cloud），几乎覆盖了后端开发的所有场景，为开发者提供了“一站式”的解决方案。</li>
+</ul>
+<h2 id="二剖析-spring-的心脏核心模块解析">二、剖析 Spring 的“心脏”：核心模块解析</h2>
+<p>Spring 框架如同一套精密的组件库，每个模块各司其职，又可无缝协作。</p>
+<h3 id="21-spring-core控制反转ioc的魔法容器">2.1 Spring Core：控制反转（IoC）的魔法容器</h3>
+<p>这是 Spring 的基础。IoC（Inversion of Control），即<strong>控制反转</strong>，是一种设计思想，而<strong>依赖注入（Dependency Injection, DI）</strong> 是其最经典的实现方式。</p>
+<p><strong>简单来说，IoC 就像一个神通广大的管家。</strong></p>
+<p>以前，你需要某个工具（对象），得自己去造（<code>new UserServiceImpl()</code>)。现在，你只需要告诉管家（Spring IoC 容器）你的需求清单，管家会负责帮你把所有工具准备好，并在你需要时递到你手上。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#75715e">// 传统方式：主动创建对象，耦合度高</span>
+</span></span><span style="display:flex;"><span>UserService userService <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> UserServiceImpl();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Spring 方式：从容器中获取，由 Spring 负责对象的生命周期</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 我们只管使用，不管创建</span>
+</span></span><span style="display:flex;"><span>UserService userService <span style="color:#f92672">=</span> context.<span style="color:#a6e22e">getBean</span>(UserService.<span style="color:#a6e22e">class</span>);
+</span></span></code></pre></div><h3 id="22-spring-aop优雅分离横切关注点">2.2 Spring AOP：优雅分离横切关注点</h3>
+<p>AOP（Aspect-Oriented Programming），即<strong>面向切面编程</strong>，是 OOP（面向对象编程）的有力补充。它允许我们将那些散布在各个业务逻辑中的“公共代码”抽离出来，形成一个独立的“切面”。</p>
+<p><img
+        class="lazyload"
+        src="/blog/svg/loading.min.svg"
+        data-src="/blog/posts/my-awesome-post/2.png"
+        data-srcset="/blog/posts/my-awesome-post/2.png, /blog/posts/my-awesome-post/2.png 1.5x, /blog/posts/my-awesome-post/2.png 2x"
+        data-sizes="auto"
+        alt="/blog/posts/my-awesome-post/2.png"
+        title="Spring AOP原理示意图" width="2336" height="1110" /></p>
+<p>这些公共代码就是<strong>横切关注点（Cross-cutting Concerns）</strong>，最常见的应用场景包括：</p>
+<ul>
+<li><strong>日志记录</strong>：在方法执行前后自动打印出入参和耗时。</li>
+<li><strong>事务管理</strong>：通过一个注解（如 <code>@Transactional</code>）就能让方法整体运行在一个事务中。</li>
+<li><strong>权限校验</strong>：在方法执行前统一检查用户权限。</li>
+</ul>
+<p>AOP 让我们的业务代码能更专注于核心逻辑，变得更加纯粹和可维护。</p>
+<h3 id="23-spring-mvc经典的-web-开发框架">2.3 Spring MVC：经典的 Web 开发框架</h3>
+<p>Spring MVC 是一个基于 MVC 设计模式的 Web 框架，它采用<strong>前端控制器模式（Front Controller Pattern）</strong>，将所有请求都先交给一个核心的 <code>DispatcherServlet</code> 来分发，极大地简化了 Web 开发。</p>
+<p>其核心组件协同工作的流程如下：</p>
+<ol>
+<li><strong>DispatcherServlet</strong>：接收所有请求，是整个流程的“总指挥”。</li>
+<li><strong>HandlerMapping</strong>：根据请求 URL 找到对应的 <code>Controller</code>（处理器）。</li>
+<li><strong>Controller</strong>：处理业务逻辑，返回一个 <code>ModelAndView</code> 对象。</li>
+<li><strong>ViewResolver</strong>：根据 <code>Controller</code> 返回的视图名，找到对应的视图（如 JSP, Thymeleaf 模板）。</li>
+<li>最终，将模型数据渲染到视图上，并返回给用户。</li>
+</ol>
+<h2 id="三spring-boot化繁为简让开发飞起来">三、Spring Boot：化繁为简，让开发“飞”起来</h2>
+<p>尽管 Spring 已经非常优秀，但其繁琐的 XML 配置也曾劝退过不少开发者。为了解决这个问题，<strong>Spring Boot</strong> 横空出世。</p>
+<blockquote>
+<p>Spring Boot 的核心思想是 <strong>“约定优于配置”（Convention over Configuration）</strong>。</p></blockquote>
+<p>它假设了大多数开发场景下的最佳实践，并将其作为默认配置。开发者不再需要编写大量的模板代码，可以真正做到“开箱即用”。</p>
+<p><img
+        class="lazyload"
+        src="/blog/svg/loading.min.svg"
+        data-src="/blog/posts/my-awesome-post/3.png"
+        data-srcset="/blog/posts/my-awesome-post/3.png, /blog/posts/my-awesome-post/3.png 1.5x, /blog/posts/my-awesome-post/3.png 2x"
+        data-sizes="auto"
+        alt="/blog/posts/my-awesome-post/3.png"
+        title="Spring Boot与传统Spring对比" width="1470" height="982" /></p>
+<h3 id="31-spring-boot-的核心特性">3.1 Spring Boot 的核心特性</h3>
+<ul>
+<li><strong>自动配置（Auto-configuration）</strong>：这是 Spring Boot 的“魔法”所在。它会根据你项目中引入的依赖，自动为你配置好相应的 Bean。例如，只要引入了 <code>spring-boot-starter-web</code>，它就会自动配置好 Tomcat 和 Spring MVC。</li>
+<li><strong>起步依赖（Starter Dependencies）</strong>：将一类场景所需的所有依赖打包成一个 <code>starter</code>。例如，你需要开发 Web 应用，只需引入 <code>spring-boot-starter-web</code>，所有相关的依赖（如 Tomcat, Jackson, Spring MVC）就都自动包含了，彻底告别了繁琐的依赖管理。</li>
+<li><strong>内嵌式服务器</strong>：无需再将应用打包成 WAR 包部署到外部的 Tomcat。Spring Boot 内置了 Tomcat, Jetty, Undertow 等服务器，可以直接将应用打包成一个可执行的 JAR 文件，通过 <code>java -jar</code> 命令一键启动。</li>
+</ul>
+<h3 id="32-快速入门3-步创建-restful-接口">3.2 快速入门：3 步创建 RESTful 接口</h3>
+<p>感受一下 Spring Boot 的极简之美：</p>
+<ol>
+<li>
+<p><strong>添加 <code>spring-boot-starter-web</code> 依赖</strong>：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#f92672">&lt;dependency&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;groupId&gt;</span>org.springframework.boot<span style="color:#f92672">&lt;/groupId&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&lt;artifactId&gt;</span>spring-boot-starter-web<span style="color:#f92672">&lt;/artifactId&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">&lt;/dependency&gt;</span>
+</span></span></code></pre></div></li>
+<li>
+<p><strong>编写一个主启动类</strong>：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@SpringBootApplication</span> <span style="color:#75715e">// 一个注解顶过去三个</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">DemoApplication</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span>(String<span style="color:#f92672">[]</span> args) {
+</span></span><span style="display:flex;"><span>        SpringApplication.<span style="color:#a6e22e">run</span>(DemoApplication.<span style="color:#a6e22e">class</span>, args);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></li>
+<li>
+<p><strong>实现一个控制器</strong>：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@RestController</span> <span style="color:#75715e">// 声明这是一个RESTful控制器</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">HelloController</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@GetMapping</span>(<span style="color:#e6db74">&#34;/hello&#34;</span>) <span style="color:#75715e">// 映射HTTP GET请求到 /hello 路径</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">hello</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;Hello, Spring Boot!&#34;</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></li>
+</ol>
+<p>启动应用，访问 <code>http://localhost:8080/hello</code>，就这么简单！</p>
+<h2 id="四spring-的全家桶庞大的生态系统">四、Spring 的“全家桶”：庞大的生态系统</h2>
+<p>Spring 的强大远不止于此，它的生态系统几乎涵盖了软件开发的所有方面。</p>
+<ul>
+<li><strong>Spring Cloud</strong>：构建分布式系统和微服务架构的“瑞士军刀”，提供服务发现、配置中心、网关等全套解决方案。</li>
+<li><strong>Spring Data</strong>：简化数据访问层的开发，无论是关系型数据库（JPA）、NoSQL（MongoDB, Redis）都能用一套统一的、优雅的 Repository 模式来操作。</li>
+<li><strong>Spring Security</strong>：提供强大而灵活的认证和授权功能，是保护你应用安全的标准选择。</li>
+<li><strong>Spring Batch</strong>：用于处理大量数据的高效批处理框架。</li>
+<li><strong>Spring Integration</strong>：实现了经典的“企业集成模式”，用于连接不同的系统和应用。</li>
+</ul>
+<h2 id="五避坑指南与最佳实践">五、避坑指南与最佳实践</h2>
+<p>要想用好 Spring，除了了解其原理，还需要遵循一些社区公认的最佳实践。</p>
+<ol>
+<li>
+<p><strong>依赖注入方式选择</strong>：</p>
+<ul>
+<li><strong>优先使用构造器注入</strong>。它能保证依赖在对象创建时就已就绪，避免了 <code>NullPointerException</code>，也便于编写单元测试。字段注入虽然代码最少，但最不推荐。</li>
+</ul>
+</li>
+<li>
+<p><strong>避免循环依赖</strong>：</p>
+<ul>
+<li>当 A 依赖 B，同时 B 又依赖 A 时，就会产生循环依赖。这通常是设计不良的信号，应通过重构代码来解决，而不是依赖 Spring 的三级缓存来“包容”它。</li>
+</ul>
+</li>
+<li>
+<p><strong>事务管理注意事项</strong>：</p>
+<ul>
+<li><code>@Transactional</code> 注解必须应用于 <code>public</code> 方法上才能生效。</li>
+<li>要警惕事务方法内部的 <code>try-catch</code> 块。如果异常被你“吃掉”了，事务可能不会按预期回滚。</li>
+</ul>
+</li>
+<li>
+<p><strong>性能优化建议</strong>：</p>
+<ul>
+<li>合理使用 Bean 的作用域（Scope）。大部分 Bean 应该是单例（Singleton），对于有状态的 Bean 应谨慎选择 <code>prototype</code> 或 <code>request</code> 作用域。</li>
+<li>使用 <code>@Lazy</code> 注解实现懒加载，延迟非必要 Bean 的初始化。</li>
+</ul>
+</li>
+</ol>
+<h2 id="六总结与展望">六、总结与展望</h2>
+<p>从一个颠覆传统 Java EE 开发的轻量级容器，到如今枝繁叶茂、无所不包的生态帝国，Spring 凭借其优雅的设计、强大的功能和活跃的社区，早已成为 Java 开发领域的事实标准。</p>
+<p>随着 Spring 6 和 Spring Boot 3 的发布，框架全面拥抱 Java 17，并为 GraalVM 原生镜像和虚拟线程等前沿技术提供了支持，持续引领着 Java 技术的发展潮流。</p>
+<p>对于每一位 Java 开发者而言，深入理解 Spring 的核心原理，并熟练运用其生态工具，无疑是提升个人技术实力、构建高质量应用系统的必经之路。</p>
+<p><img
+        class="lazyload"
+        src="/blog/svg/loading.min.svg"
+        data-src="/blog/posts/my-awesome-post/4.jpg"
+        data-srcset="/blog/posts/my-awesome-post/4.jpg, /blog/posts/my-awesome-post/4.jpg 1.5x, /blog/posts/my-awesome-post/4.jpg 2x"
+        data-sizes="auto"
+        alt="/blog/posts/my-awesome-post/4.jpg"
+        title="Spring生态全景图" width="970" height="500" /></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2024-10-27</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="http://localhost:1313/blog/posts/my-awesome-post/" data-title="深入浅出 Spring：从核心原理到 Spring Boot 实战，一篇通关！" data-hashtags="Java,Spring,Spring Boot,后端"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="http://localhost:1313/blog/posts/my-awesome-post/" data-hashtag="Java"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="http://localhost:1313/blog/posts/my-awesome-post/" data-title="深入浅出 Spring：从核心原理到 Spring Boot 实战，一篇通关！"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="http://localhost:1313/blog/posts/my-awesome-post/" data-title="深入浅出 Spring：从核心原理到 Spring Boot 实战，一篇通关！"><i data-svg-src="/blog/lib/simple-icons/icons/line.min.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="http://localhost:1313/blog/posts/my-awesome-post/" data-title="深入浅出 Spring：从核心原理到 Spring Boot 实战，一篇通关！"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/blog/tags/java/">Java</a>,&nbsp;<a href="/blog/tags/spring/">Spring</a>,&nbsp;<a href="/blog/tags/spring-boot/">Spring Boot</a>,&nbsp;<a href="/blog/tags/%E5%90%8E%E7%AB%AF/">后端</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/blog/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+            <a href="/blog/posts/spring-nacos-post/" class="next" rel="next" title="深入浅出 Spring Cloud Nacos：一站式搞定服务发现与配置管理">深入浅出 Spring Cloud Nacos：一站式搞定服务发现与配置管理<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2024 - 2025</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/about/" target="_blank">MonkeyKe</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener norefferer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp">皖ICP备2024059714号-1</span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="/blog/lib/katex/katex.min.css"><script type="text/javascript" src="/blog/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/blog/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/blog/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/blog/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/blog/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/blog/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/blog/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/blog/lib/typeit/index.umd.js"></script><script type="text/javascript" src="/blog/lib/katex/katex.min.js"></script><script type="text/javascript" src="/blog/lib/katex/contrib/auto-render.min.js"></script><script type="text/javascript" src="/blog/lib/katex/contrib/copy-tex.min.js"></script><script type="text/javascript" src="/blog/lib/katex/contrib/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":20},"comment":{},"data":{"id-1":"MonkeyKe","id-2":"MonkeyKe"},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/blog/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/blog/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/blog/js/theme.min.js"></script></body>
+</html>

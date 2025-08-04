@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Spring Cloud on 猿客随笔</title>
+    <link>http://localhost:1313/blog/tags/spring-cloud/</link>
+    <description>Recent content in Spring Cloud on 猿客随笔</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <managingEditor>contact@monkeyke.com (MonkeyKe)</managingEditor>
+    <webMaster>contact@monkeyke.com (MonkeyKe)</webMaster>
+    <lastBuildDate>Fri, 01 Aug 2025 05:05:50 +0800</lastBuildDate>
+    <atom:link href="http://localhost:1313/blog/tags/spring-cloud/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>深入浅出 Spring Cloud Nacos：一站式搞定服务发现与配置管理</title>
+      <link>http://localhost:1313/blog/posts/spring-nacos-post/</link>
+      <pubDate>Fri, 01 Aug 2025 05:05:50 +0800</pubDate><author>contact@monkeyke.com (MonkeyKe)</author>
+      <guid>http://localhost:1313/blog/posts/spring-nacos-post/</guid>
+      <description>&lt;p&gt;&lt;img&#xA;        class=&#34;lazyload&#34;&#xA;        src=&#34;http://localhost:1313/blog/svg/loading.min.svg&#34;&#xA;        data-src=&#34;http://localhost:1313/blog/posts/spring-nacos-post/1.png&#34;&#xA;        data-srcset=&#34;http://localhost:1313/blog/posts/spring-nacos-post/1.png, http://localhost:1313/blog/posts/spring-nacos-post/1.png 1.5x, http://localhost:1313/blog/posts/spring-nacos-post/1.png 2x&#34;&#xA;        data-sizes=&#34;auto&#34;&#xA;        alt=&#34;/blog/posts/spring-nacos-post/1.png&#34;&#xA;        title=&#34;img&#34; width=&#34;2482&#34; height=&#34;1632&#34; /&gt;&lt;/p&gt;&#xA;&lt;p&gt;在微服务架构的浪潮中，服务的动态管理和配置的集中化成为了开发者必须面对的核心挑战。此时，Nacos 如同瑞士军刀一般，为我们提供了优雅而强大的一站式解决方案。本文将带你从零开始，深入理解 Nacos 的核心功能，并实战演示如何将其无缝集成到 Spring Cloud 项目中。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

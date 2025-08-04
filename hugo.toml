@@ -1,94 +1,151 @@
 # ===================================================================
+# 猿客随笔 (MonkeyKe's Blog) - Hugo 配置文件 (LoveIt 主题)
+# 最后更新: 2023-10-27
+# ===================================================================
 
 # -- 1. 网站全局基础配置 --
-baseURL = "https://monkeyke.com/blog/" # 【确认】这是您博客的最终URL
-theme = "LoveIt"
-# 设置默认语言为中文
-defaultContentLanguage = "zh-cn"
-# 对中日韩语言支持很重要
-hasCJKLanguage = true
-enableRobotsTXT = true
-lowerCaseURL = true
-title = "猿客随笔" # 这是一个全局的备用标题, 会被语言特定标题覆盖
+# 这一部分是 Hugo 的核心配置，决定了网站的基本信息和行为。
+# -------------------------------------------------------------------
 
-# -- 2. Hugo模块配置 (全局) --
+# 网站的最终访问URL，【极其重要】。所有绝对链接和SEO规范都依赖此项。
+# 必须以'/'结尾。
+baseURL = "https://monkeyke.com/blog/"
+
+# 使用的主题名称，必须与你的 `themes` 文件夹中的主题名一致。
+theme = "LoveIt"
+
+# 网站的默认内容语言。
+defaultContentLanguage = "zh-cn"
+
+# 是否包含中日韩语言。设为 true 会启用更精确的 CJK 字符分词，
+# 从而让摘要 (`.Summary`) 和字数统计 (`.WordCount`) 更准确。
+hasCJKLanguage = true
+
+# 是否为网站根目录生成 `robots.txt` 文件。
+# `robots.txt` 用于告知搜索引擎爬虫哪些页面可以抓取，哪些不可以。建议开启。
+enableRobotsTXT = true
+
+# 是否将所有URL转换为小写。
+# 这对SEO友好，可以避免因大小写不同导致同一页面被视为两个URL。
+lowerCaseURL = true
+
+# 网站的全局标题。这是一个备用标题，通常会被特定语言的标题覆盖。
+title = "猿客随笔"
+
+
+# ===================================================================
+# -- 2. Hugo 模块配置 (全局) --
+# 用于管理 Hugo 的版本依赖等。
+# -------------------------------------------------------------------
 [module]
   [module.hugoVersion]
+    # 要求的最低 Hugo 版本。如果用户使用的 Hugo 版本过低，会提示错误。
+    # 这可以避免因版本不兼容导致的主题渲染问题。
     min = "0.128.0"
 
-# -- 3. 定义所有支持的语言 --
+
+# ===================================================================
+# -- 3. 多语言配置 --
+# LoveIt 主题对多语言支持非常好，你可以在这里定义多种语言。
+# -------------------------------------------------------------------
 [languages]
   # --- 3.1 中文配置 ---
   [languages."zh-cn"]
-    languageName = "简体中文"
-    languageCode = "zh-cn"
-    weight = 1 # 权重1，作为默认语言
-    title = "猿客随笔" # 【请修改】您的网站总标题
-    # 中文菜单配置
+    languageName = "简体中文"      # 在语言切换菜单中显示的名称
+    languageCode = "zh-cn"        # 语言的唯一代码
+    weight = 1                    # 权重，数字越小越优先，1表示这是默认语言
+
+    # [中文环境] 网站在浏览器标签页上显示的主标题
+    title = "猿客随笔"
+
+   # [中文环境] 导航栏菜单配置
     [languages."zh-cn".menu]
       [[languages."zh-cn".menu.main]]
         identifier = "posts"
-        name = "📰 文章" # 显示在导航栏的文字
+        # name 只保留纯文本
+        name = "文章"
+        # pre 字段用于放置图标
+        pre = "<i class='fa-solid fa-archive fa-fw'></i>"
         url = "/posts/"
-        weight = 1 # 排序，数字越小越靠前
+        weight = 1
+
       [[languages."zh-cn".menu.main]]
         identifier = "tags"
-        name = "🏷️ 标签"
+        name = "标签"
+        pre = "<i class='fa-solid fa-tags fa-fw'></i>"
         url = "/tags/"
         weight = 2
+
       [[languages."zh-cn".menu.main]]
         identifier = "categories"
-        name = "🗂️ 分类"
+        name = "分类"
+        pre = "<i class='fa-solid fa-folder-tree fa-fw'></i>"
         url = "/categories/"
         weight = 3
+
       [[languages."zh-cn".menu.main]]
         identifier = "about"
-        name = "🙋‍♂️ 关于我"
+        name = "关于我"
+        pre = "<i class='fa-solid fa-user-tie fa-fw'></i>"
         url = "/about/"
         weight = 4
-    # 中文模式下的、需要翻译的参数
+
+    # [中文环境] 主题参数，用于覆盖全局 [params] 中的同名设置
     [languages."zh-cn".params]
-      description = "分享技术、思考与生活点滴" # 【请修改】
-      title = "MonkeyKe的博客" # 【请修改】
+      # 网站描述，主要用于SEO，会出现在搜索引擎的结果摘要中。
+      description = "分享技术、思考与生活点滴"
+      # 网站标题，优先级高于全局 title
+      title = "MonkeyKe的博客"
+
+      # [中文环境] 作者信息
       [languages."zh-cn".params.author]
-        name = "MonkeyKe" # 【请修改】您的名字或昵称
+        name = "MonkeyKe"
+
+      # [中文环境] 导航栏标题
       [languages."zh-cn".params.header.title]
-        name = "MonkeyKe" # 导航栏显示的标题
+        name = "MonkeyKe"
+
+      # [中文环境] 主页个人信息部分的标题和副标题
       [languages."zh-cn".params.home.profile]
-        title = "MonkeyKe的博客" # 主页大标题
-        subtitle = "一个热爱探索的开发者" # 【请修改】主页副标题
+        title = "MonkeyKe的博客"
+        subtitle = "一个热爱探索的开发者"
+      
+      # [中文环境] 搜索框的占位提示语
       [languages."zh-cn".params.search]
         placeholder = "搜索文章标题或内容..."
   
-  # --- 3.2 英文配置 ---
+  # --- 3.2 英文配置 (如果不需要，可以将整个 [languages.en] 区块删除) ---
   [languages.en]
     languageName = "English"
     languageCode = "en"
-    weight = 2 # 权重2，作为第二语言
-    title = "MonkeyKe's Log" # 英文网站标题
-    # 英文菜单配置
+    weight = 2
+    title = "MonkeyKe's Log"
+# [英文环境] 导航栏菜单配置
     [languages.en.menu]
       [[languages.en.menu.main]]
         identifier = "posts"
-        name = "📰 Posts"
+        name = "Posts"
+        pre = "<i class='fa-solid fa-archive fa-fw'></i>"
         url = "/posts/"
         weight = 1
       [[languages.en.menu.main]]
         identifier = "tags"
-        name = "🏷️ Tags"
+        name = "Tags"
+        pre = "<i class='fa-solid fa-tags fa-fw'></i>"
         url = "/tags/"
         weight = 2
       [[languages.en.menu.main]]
         identifier = "categories"
-        name = "🗂️ Categories"
+        name = "Categories"
+        pre = "<i class='fa-solid fa-folder-tree fa-fw'></i>"
         url = "/categories/"
         weight = 3
       [[languages.en.menu.main]]
         identifier = "about"
-        name = "🙋‍♂️ About"
+        name = "About"
+        pre = "<i class='fa-solid fa-user-tie fa-fw'></i>"
         url = "/about/"
         weight = 4
-    # 英文模式下的、需要翻译的参数
     [languages.en.params]
       description = "Sharing tech, thoughts, and life."
       title = "MonkeyKe's Blog"
@@ -104,117 +161,174 @@ title = "猿客随笔" # 这是一个全局的备用标题, 会被语言特定�
 
 # ===================================================================
 # 4. 全局主题参数 [params] (对所有语言生效)
-# ===================================================================
+# 这是 LoveIt 主题最核心的配置区。
+# -------------------------------------------------------------------
 [params]
-  # 默认主题 ["auto", "light", "dark"]
+  # 网站的默认主题模式，可选值: ["auto", "light", "dark"]
+  # "auto" 会根据访问者操作系统的设置自动切换。
   defaultTheme = "auto"
-  # 您的公开Git仓库，如果您的博客是开源的可以填上
-  gitRepo = "https://github.com/你的GitHub用户名/你的博客仓库名" # 【可选】
-  # 日期格式
+  
+  # 你的公开 Git 仓库地址。如果填写，主题可能会在某些地方显示“编辑此页”的链接。
+  gitRepo = "https://github.com/monkeyke/monkeyke-hugo"
+  
+  # 全局日期格式。格式化字符串遵循 Go 语言的时间格式。
+  # "2006-01-02" 是一个记忆性的格式，分别代表 年-月-日。
   dateFormat = "2006-01-02"
-  # 网站主图 (用于SEO和社交分享, 建议尺寸1200x630, 放在static目录下)
-  #images = ["/images/og-image.jpg"] # 【可选】
+  
+  # 【重要】网站的预览图。当你在社交媒体（如微信、Twitter）分享链接时显示的图片。
+  # 建议尺寸 1200x630 像素。图片需要放在 `static` 目录下。
+  images = ["/images/og-image.png"] # 【请创建此图片】
 
-  # -- 作者信息 (全局部分) --
+  # -- 全局作者信息 --
   [params.author]
-    email = "contact@monkeyke.com" # 【可选】您的邮箱
-    link = "/about/" # 点击作者名跳转的链接
+    email = "contact@monkeyke.com"
+    link = "/about/" # 点击作者名时跳转的链接
 
-  # -- 页面头部导航栏 (全局部分) --
+  # -- 应用图标配置 (Favicon) --
+  # 这是显示在浏览器标签页上的小图标，是网站品牌的重要组成部分。
+  [params.app]
+    # 推荐使用 SVG 格式的图标，因为它清晰且体积小。放在 `static` 目录下。
+	#noFavicon = false
+    svgFavicon  = "/favicon.svg" # 【推荐创建此SVG图标】
+    # Android 浏览器中地址栏的颜色
+    themeColor = "#ffffff"
+    # 当网站被添加到 iOS 主屏幕时，图标的颜色（仅对 Safari 有效）
+    iconColor = "#5bbad5"
+
+  # -- 页面头部导航栏配置 --
   [params.header]
-    desktopMode = "fixed" # 桌面端固定导航栏
+    # 桌面端导航栏模式: "fixed" (始终在顶部), "normal" (随页面滚动)
+    desktopMode = "fixed"
+    # 移动端导航栏模式
     mobileMode = "auto"
     [params.header.title]
-      # 您的LOGO图片路径 (放在 static 目录下)
-      #logo = "/images/logo.png" # 【可选】
-      typeit = true # 是否开启打字机效果
+      # logo = "/images/logo.png" # 如果你有 Logo 图片，可以放在 static 目录并取消此行注释
+      # 是否为网站标题开启打字机动画效果
+      typeit = true
 
-  # -- 页面底部信息 (全局) --
+  # -- 页面底部信息配置 --
   [params.footer]
-    enable = true
-    hugo = false # 显示 "Powered by Hugo"
-    copyright = true # 显示版权信息
-    author = true # 显示作者
-    since = 2024 # 【请修改】网站创建年份
-    # ICP备案号 (仅中国大陆需要)
-    icp = "皖ICP备2024059714号-1" # 【可选】
-    # 许可协议
+    enable = true         # 是否显示页脚
+    hugo = false          # 是否显示 "Powered by Hugo"
+    copyright = true      # 是否显示版权信息 ©
+    author = true         # 是否显示作者名
+    since = 2024          # 网站创立年份
+    # ICP 备案号 (仅中国大陆网站需要)
+    icp = "皖ICP备2024059714号-1"
+    # 网站内容许可协议，这里的示例是 "CC BY-NC 4.0"
     license = '<a rel="license external nofollow noopener norefferer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a>'
 
-  # -- 主页配置 (全局部分) --
-  [params.home]
-    [params.home.profile]
-      enable = true
-      # 您的头像图片路径 (放在 static 目录下)
-	  gravatarEmail = "contact@monkeyke.com"
-      avatarURL = "/images/avatar.png" # 【请修改】
-      social = true
-      disclaimer = ""
-    # 主页文章列表
-    [params.home.posts]
-      enable = true
-      paginate = 6 # 主页每页显示6篇文章
+  # -- 主页配置 --
+  [params.home.profile]
+    enable = true
+    # 优先使用 Gravatar 头像
+    gravatarEmail = "contact@monkeyke.com"
+    # 【重要】使用国内镜像地址，解决 Gravatar 访问问题
+    gravatarHost = "https://cdn.v2ex.com/gravatar"
+    # avatarURL = "/images/avatar.png" # 这是备用本地头像，建议只保留一种，注释掉此行
+    social = true       # 是否在个人信息下显示社交链接
+    # disclaimer = "欢迎来到我的个人博客！" # 可以在头像下显示一行免责声明或欢迎语
 
-  # -- 社交链接 (全局) --
+  # 主页文章列表配置
+  [params.home.posts]
+    enable = true
+    paginate = 6      # 主页每页显示6篇文章
+
+  # -- 社交链接配置 --
+  # 在这里填写你的社交账号，主题会自动生成对应的图标和链接。
+  # 只需填写用户名或ID，不需要写完整URL。
   [params.social]
-    GitHub = "your_github_username" # 【请修改】
-    X = "your_twitter_username" # 【可选】
-    Bilibili = "your_bilibili_uid" # 【可选】
-    Email = "your_email@example.com" # 【可选】
-    RSS = true # 开启RSS订阅链接
+    GitHub = "Monkeyke"
+    Email = "contact@monkeyke.com"
+    # Bilibili = "你的B站UID"
+    RSS = true # 强烈建议开启，让读者可以通过RSS阅读器订阅你的博客
 
-  # -- 搜索功能配置 (全局部分) --
+  # -- 搜索功能配置 --
   [params.search]
-    enable = true  #【重要】启用搜索功能
-    type = "lunr"  # 使用本地搜索，无需额外服务
-    contentLength = 4000
-    maxResultLength = 10
-    snippetLength = 50
-    highlightTag = "em"
-    absoluteURL = false
+    enable = true       # 是否启用搜索功能
+    type = "lunr"       # 搜索引擎类型。"lunr"是纯前端的本地搜索，无需任何后端服务。
+    contentLength = 4000 # 每篇文章用于索引的最大字符数
+    maxResultLength = 10 # 搜索结果最多显示条数
+    snippetLength = 50   # 搜索结果摘要的长度
 
-  # -- 文章页面全局配置 (全局) --
+  # -- 文章页面全局配置 --
   [params.page]
-    # KaTeX数学公式支持 (如果您写技术博客，可能会用到)
+    # 【重要】全局开启 Font Awesome 图标支持。这是让菜单图标显示出来的关键！
+    fontawesome = true
+    # 【重要】开启图片灯箱效果。点击文章中的图片会漂亮地放大，而不是在新标签页打开。
+    lightgallery = true
+
+    # KaTeX 数学公式支持。如果你需要写数学或算法相关的博客，请开启。
     [params.page.math]
-      enable = true # 设为true以支持数学公式
+      enable = true
+
     # 代码块配置
     [params.page.code]
-      copy = true # 显示代码复制按钮
-      maxShownLines = 20 # 默认最多显示20行，超过则折叠
-    # 文章目录
+      copy = true         # 是否显示“复制”按钮
+      maxShownLines = 20  # 代码块超过20行时自动折叠
+
+    # 文章目录 (TOC) 配置
     [params.page.toc]
-      enable = true
-      keepStatic = false
-      auto = true
-    # 文章分享按钮
+      enable = true       # 是否为文章页显示目录
+      keepStatic = false  # false 表示目录会随页面滚动，true 表示固定在文章开头
+      auto = true         # true 表示当屏幕宽度足够时，目录才会在侧边栏显示
+
+    # 文章底部的社交分享按钮
     [params.page.share]
       enable = true
-      # 您可以在这里选择开启哪些社交分享
       X = true
       Facebook = true
       Weibo = true
       Telegram = true
-    # 评论系统 (默认禁用，您可以选择一种开启并配置)
+
+    # -- 评论系统配置 --
+    # 推荐使用 Giscus，它基于 GitHub Discussions，无广告、安全、配置简单。
     [params.page.comment]
-      enable = false
+      enable = true # 评论功能的总开关
       [params.page.comment.giscus]
-        enable = false # 推荐使用Giscus，基于GitHub Discussions，配置简单
-        repo = "your_github_username/your_repo_name" # 【可选】
-        repoId = "" # 【可选】
-        category = "Announcements" # 【可选】
-        categoryId = "" # 【可选】
+        enable = true
+        # 你的公开 GitHub 仓库，格式为 "用户名/仓库名"
+        repo = "monkeyke/monkeyke-hugo" # 【请修改】
+        # 仓库的 ID，从 Giscus 官网获取
+        repoId = "你的Repo_ID" # 【请修改】
+        # 你希望用来存放评论的 Discussion 分类
+        category = "Announcements" # 【请修改】
+        # 分类的 ID，从 Giscus 官网获取
+        categoryId = "你的Category_ID" # 【请修改】
+        lang = "zh-CN"
+        mapping = "pathname"
+        reactionsEnabled = "1"
+        emitMetadata = "0"
+        inputPosition = "bottom"
+        lazyLoading = true
+        lightTheme = "light"
+        darkTheme = "dark"
 
-  # -- CDN配置 (全局) --
+  # -- CDN 配置 --
+  # 用于加载主题的 JS/CSS 等静态资源。使用 CDN 可以加快全球访问速度。
+  # "jsdelivr.yml" 是主题内置的 jsDelivr CDN 配置，通常无需修改。
   [params.cdn]
-    data = "jsdelivr.yml"
+    data = "bootcdn.yml"
+
+  # -- 网站分析与验证 (可选，但对SEO有帮助) --
+  [params.analytics]
+    # Google Analytics，用于追踪网站流量
+    [params.analytics.google]
+      id = "" # 【可选】在这里填入你的 Google Analytics Measurement ID (G-XXXXXXXXXX)
+  [params.verification]
+    # 用于向各大搜索引擎验证你对网站的所有权
+    google = "" # 【可选】Google Search Console 的验证码
+    baidu = ""  # 【可选】百度站长平台的验证码
+
 
 # ===================================================================
-# 5. Hugo核心输出配置 (全局)
-# ===================================================================
+# 5. Hugo 核心输出配置 (全局)
+# 这一部分定义了 Hugo 会为不同类型的页面生成哪些格式的文件。
+# 通常保持默认即可。
+# -------------------------------------------------------------------
 [outputs]
-  home = ["HTML", "RSS", "JSON"]
-  page = ["HTML", "JSON"]
-  section = ["HTML", "RSS"]
-  taxonomy = ["HTML", "RSS"]
-  taxonomyTerm = ["HTML"]
+  home = ["HTML", "RSS", "JSON"]  # 主页：生成HTML、RSS订阅文件、JSON搜索索引
+  page = ["HTML", "JSON"]         # 文章页：生成HTML、JSON搜索索引
+  section = ["HTML", "RSS"]       # 分区页(如/posts/)：生成HTML、RSS
+  taxonomy = ["HTML", "RSS"]      # 分类法页(如/tags/): 生成HTML、RSS
+  taxonomyTerm = ["HTML"]         # 分类法具体条目页(如/tags/java/): 生成HTML

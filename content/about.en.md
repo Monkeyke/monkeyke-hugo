@@ -1,6 +1,6 @@
 ---
 title: "About Me"    # 翻译成英文标题
-date: 2024-08-26T15:00:00+08:00
+date: 2023-08-26T15:00:00+08:00
 draft: false
 author: "MonkeyKe"
 description: "Learn more about MonkeyKe and the story behind this blog."
@@ -23,10 +23,10 @@ Welcome to my personal blog **"Yuan Ke Sui Bi" (Ape Guest Essays)**. I created t
 
 ### My Tech Stack
 
-- Frontend: Vue.js, React
-- Backend: Node.js, Go
-- Databases: MongoDB, MySQL
-- ... and many more I'm still exploring!
+- Frontend: Vue.js, React,Uniapp...
+- Backend: Node.js, Go,Java,Scala,SpringBoot,SpringCloud...
+- Databases: MongoDB, MySQL....
+- BigData：Hive,Hadoop,Spark,Flink...
 
 ### Contact Me
 
