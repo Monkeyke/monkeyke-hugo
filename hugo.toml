@@ -177,7 +177,7 @@ title = "猿客随笔"
   
   # 【重要】网站的预览图。当你在社交媒体（如微信、Twitter）分享链接时显示的图片。
   # 建议尺寸 1200x630 像素。图片需要放在 `static` 目录下。
-  images = ["/images/og-image.png"] # 【请创建此图片】
+  images = ["/blog/images/og-image.png"] # 【请创建此图片】
 
   # -- 全局作者信息 --
   [params.author]
@@ -189,7 +189,7 @@ title = "猿客随笔"
   [params.app]
     # 推荐使用 SVG 格式的图标，因为它清晰且体积小。放在 `static` 目录下。
 	#noFavicon = false
-    svgFavicon  = "/favicon.svg" # 【推荐创建此SVG图标】
+    svgFavicon  = "/blog/favicon.svg" # 【推荐创建此SVG图标】
     # Android 浏览器中地址栏的颜色
     themeColor = "#ffffff"
     # 当网站被添加到 iOS 主屏幕时，图标的颜色（仅对 Safari 有效）
@@ -202,7 +202,7 @@ title = "猿客随笔"
     # 移动端导航栏模式
     mobileMode = "auto"
     [params.header.title]
-      # logo = "/images/logo.png" # 如果你有 Logo 图片，可以放在 static 目录并取消此行注释
+      # logo = "/blog/images/logo.png" # 如果你有 Logo 图片，可以放在 static 目录并取消此行注释
       # 是否为网站标题开启打字机动画效果
       typeit = true
 
@@ -225,7 +225,7 @@ title = "猿客随笔"
     gravatarEmail = "contact@monkeyke.com"
     # 【重要】使用国内镜像地址，解决 Gravatar 访问问题
     gravatarHost = "https://cdn.v2ex.com/gravatar"
-    # avatarURL = "/images/avatar.png" # 这是备用本地头像，建议只保留一种，注释掉此行
+    # avatarURL = "/blog/images/avatar.png" # 这是备用本地头像，建议只保留一种，注释掉此行
     social = true       # 是否在个人信息下显示社交链接
     # disclaimer = "欢迎来到我的个人博客！" # 可以在头像下显示一行免责声明或欢迎语
 
