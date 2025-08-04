@@ -222,12 +222,13 @@ title = "猿客随笔"
   [params.home.profile]
     enable = true
     # 优先使用 Gravatar 头像
-    gravatarEmail = "contact@monkeyke.com"
-    # 【重要】使用国内镜像地址，解决 Gravatar 访问问题
-    gravatarHost = "https://cdn.v2ex.com/gravatar"
-    # avatarURL = "/blog/images/avatar.png" # 这是备用本地头像，建议只保留一种，注释掉此行
+	# 【重要】使用国内镜像地址，解决 Gravatar 访问问题
+	#gravatarHost = "https://cn.cravatar.com/avatar"
+    #gravatarEmail = "admin@monkeyke.com"
+   
+    avatarURL = "/blog/images/avatar.png" # 这是备用本地头像，建议只保留一种，注释掉此行
     social = true       # 是否在个人信息下显示社交链接
-    # disclaimer = "欢迎来到我的个人博客！" # 可以在头像下显示一行免责声明或欢迎语
+    #disclaimer = "欢迎来到我的个人博客！" # 可以在头像下显示一行免责声明或欢迎语
 
   # 主页文章列表配置
   [params.home.posts]
