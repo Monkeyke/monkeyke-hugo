@@ -1,0 +1,222 @@
+# ===================================================================
+# Hugo + LoveIt 主题 完整配置文件 (由AI助手为您进行双语改造)
+# ===================================================================
+
+# -- 1. 网站全局基础配置 --
+baseURL = "https://monkeyke.com/blog/" # 【确认】这是您博客的最终URL
+theme = "LoveIt"
+# 设置默认语言为中文
+defaultContentLanguage = "zh-cn"
+# 对中日韩语言支持很重要
+hasCJKLanguage = true
+enableRobotsTXT = true
+lowerCaseURL = true
+title = "猿客随笔" # 这是一个全局的备用标题, 会被语言特定标题覆盖
+
+# -- 2. Hugo模块配置 (全局) --
+[module]
+  [module.hugoVersion]
+    min = "0.128.0"
+
+# -- 3. 定义所有支持的语言 --
+[languages]
+  # --- 3.1 中文配置 ---
+  [languages."zh-cn"]
+    languageName = "简体中文"
+    languageCode = "zh-cn"
+    weight = 1 # 权重1，作为默认语言
+    title = "猿客随笔" # 【请修改】您的网站总标题
+    # 中文菜单配置
+    [languages."zh-cn".menu]
+      [[languages."zh-cn".menu.main]]
+        identifier = "posts"
+        name = "📰 文章" # 显示在导航栏的文字
+        url = "/posts/"
+        weight = 1 # 排序，数字越小越靠前
+      [[languages."zh-cn".menu.main]]
+        identifier = "tags"
+        name = "🏷️ 标签"
+        url = "/tags/"
+        weight = 2
+      [[languages."zh-cn".menu.main]]
+        identifier = "categories"
+        name = "🗂️ 分类"
+        url = "/categories/"
+        weight = 3
+      [[languages."zh-cn".menu.main]]
+        identifier = "about"
+        name = "🙋‍♂️ 关于我"
+        url = "/about/"
+        weight = 4
+    # 中文模式下的、需要翻译的参数
+    [languages."zh-cn".params]
+      description = "分享技术、思考与生活点滴" # 【请修改】
+      title = "MonkeyKe的博客" # 【请修改】
+      [languages."zh-cn".params.author]
+        name = "MonkeyKe" # 【请修改】您的名字或昵称
+      [languages."zh-cn".params.header.title]
+        name = "MonkeyKe" # 导航栏显示的标题
+      [languages."zh-cn".params.home.profile]
+        title = "MonkeyKe的博客" # 主页大标题
+        subtitle = "一个热爱探索的开发者" # 【请修改】主页副标题
+      [languages."zh-cn".params.search]
+        placeholder = "搜索文章标题或内容..."
+  
+  # --- 3.2 英文配置 ---
+  [languages.en]
+    languageName = "English"
+    languageCode = "en"
+    weight = 2 # 权重2，作为第二语言
+    title = "MonkeyKe's Log" # 英文网站标题
+    # 英文菜单配置
+    [languages.en.menu]
+      [[languages.en.menu.main]]
+        identifier = "posts"
+        name = "📰 Posts"
+        url = "/posts/"
+        weight = 1
+      [[languages.en.menu.main]]
+        identifier = "tags"
+        name = "🏷️ Tags"
+        url = "/tags/"
+        weight = 2
+      [[languages.en.menu.main]]
+        identifier = "categories"
+        name = "🗂️ Categories"
+        url = "/categories/"
+        weight = 3
+      [[languages.en.menu.main]]
+        identifier = "about"
+        name = "🙋‍♂️ About"
+        url = "/about/"
+        weight = 4
+    # 英文模式下的、需要翻译的参数
+    [languages.en.params]
+      description = "Sharing tech, thoughts, and life."
+      title = "MonkeyKe's Blog"
+      [languages.en.params.author]
+        name = "MonkeyKe"
+      [languages.en.params.header.title]
+        name = "MonkeyKe"
+      [languages.en.params.home.profile]
+        title = "MonkeyKe's Blog"
+        subtitle = "A developer who loves to explore"
+      [languages.en.params.search]
+        placeholder = "Search titles or contents..."
+
+# ===================================================================
+# 4. 全局主题参数 [params] (对所有语言生效)
+# ===================================================================
+[params]
+  # 默认主题 ["auto", "light", "dark"]
+  defaultTheme = "auto"
+  # 您的公开Git仓库，如果您的博客是开源的可以填上
+  gitRepo = "https://github.com/你的GitHub用户名/你的博客仓库名" # 【可选】
+  # 日期格式
+  dateFormat = "2006-01-02"
+  # 网站主图 (用于SEO和社交分享, 建议尺寸1200x630, 放在static目录下)
+  #images = ["/images/og-image.jpg"] # 【可选】
+
+  # -- 作者信息 (全局部分) --
+  [params.author]
+    email = "contact@monkeyke.com" # 【可选】您的邮箱
+    link = "/about/" # 点击作者名跳转的链接
+
+  # -- 页面头部导航栏 (全局部分) --
+  [params.header]
+    desktopMode = "fixed" # 桌面端固定导航栏
+    mobileMode = "auto"
+    [params.header.title]
+      # 您的LOGO图片路径 (放在 static 目录下)
+      #logo = "/images/logo.png" # 【可选】
+      typeit = true # 是否开启打字机效果
+
+  # -- 页面底部信息 (全局) --
+  [params.footer]
+    enable = true
+    hugo = false # 显示 "Powered by Hugo"
+    copyright = true # 显示版权信息
+    author = true # 显示作者
+    since = 2024 # 【请修改】网站创建年份
+    # ICP备案号 (仅中国大陆需要)
+    icp = "皖ICP备2024059714号-1" # 【可选】
+    # 许可协议
+    license = '<a rel="license external nofollow noopener norefferer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a>'
+
+  # -- 主页配置 (全局部分) --
+  [params.home]
+    [params.home.profile]
+      enable = true
+      # 您的头像图片路径 (放在 static 目录下)
+	  gravatarEmail = "contact@monkeyke.com"
+      avatarURL = "/images/avatar.png" # 【请修改】
+      social = true
+      disclaimer = ""
+    # 主页文章列表
+    [params.home.posts]
+      enable = true
+      paginate = 6 # 主页每页显示6篇文章
+
+  # -- 社交链接 (全局) --
+  [params.social]
+    GitHub = "your_github_username" # 【请修改】
+    X = "your_twitter_username" # 【可选】
+    Bilibili = "your_bilibili_uid" # 【可选】
+    Email = "your_email@example.com" # 【可选】
+    RSS = true # 开启RSS订阅链接
+
+  # -- 搜索功能配置 (全局部分) --
+  [params.search]
+    enable = true  #【重要】启用搜索功能
+    type = "lunr"  # 使用本地搜索，无需额外服务
+    contentLength = 4000
+    maxResultLength = 10
+    snippetLength = 50
+    highlightTag = "em"
+    absoluteURL = false
+
+  # -- 文章页面全局配置 (全局) --
+  [params.page]
+    # KaTeX数学公式支持 (如果您写技术博客，可能会用到)
+    [params.page.math]
+      enable = true # 设为true以支持数学公式
+    # 代码块配置
+    [params.page.code]
+      copy = true # 显示代码复制按钮
+      maxShownLines = 20 # 默认最多显示20行，超过则折叠
+    # 文章目录
+    [params.page.toc]
+      enable = true
+      keepStatic = false
+      auto = true
+    # 文章分享按钮
+    [params.page.share]
+      enable = true
+      # 您可以在这里选择开启哪些社交分享
+      X = true
+      Facebook = true
+      Weibo = true
+      Telegram = true
+    # 评论系统 (默认禁用，您可以选择一种开启并配置)
+    [params.page.comment]
+      enable = false
+      [params.page.comment.giscus]
+        enable = false # 推荐使用Giscus，基于GitHub Discussions，配置简单
+        repo = "your_github_username/your_repo_name" # 【可选】
+        repoId = "" # 【可选】
+        category = "Announcements" # 【可选】
+        categoryId = "" # 【可选】
+
+  # -- CDN配置 (全局) --
+  [params.cdn]
+    data = "jsdelivr.yml"
+
+# ===================================================================
+# 5. Hugo核心输出配置 (全局)
+# ===================================================================
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+  page = ["HTML", "JSON"]
+  section = ["HTML", "RSS"]
+  taxonomy = ["HTML", "RSS"]
+  taxonomyTerm = ["HTML"]
