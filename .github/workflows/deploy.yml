@@ -1,0 +1,50 @@
+# Workflow 名称
+name: Deploy Hugo Site to Server
+
+# 触发条件
+on:
+  # 【修改点 1】当推送到 master 分支时触发
+  push:
+    branches:
+      - master  
+  # 允许手动触发
+  workflow_dispatch:
+
+# 定义任务
+jobs:
+  build-and-deploy:
+    # 运行环境
+    runs-on: ubuntu-latest
+
+    steps:
+      # 步骤 1: 拉取代码
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: 'recursive' # 拉取主题
+
+      # 步骤 2: 设置 Hugo 环境
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v3
+        with:
+          # 【修改点 2】使用最新的 Hugo 版本
+          hugo-version: 'latest' 
+          # 依然需要 extended 版本，因为 LoveIt 主题需要
+          extended: true 
+
+      # 步骤 3: 构建 Hugo 网站
+      - name: Build Hugo site
+        # 使用 -b 参数明确指定 baseURL，确保子目录链接正确
+        # 使用 vars.HUGO_BASE_URL 是更灵活的做法
+        run: hugo --minify -b ${{ vars.HUGO_BASE_URL || 'https://monkeyke.com/blog/' }}
+
+      # 步骤 4: 部署到服务器
+      - name: Deploy to Server via rsync
+        uses: easingthemes/ssh-deploy@v5
+        with:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          REMOTE_HOST: ${{ secrets.SERVER_HOST }}
+          REMOTE_USER: ${{ secrets.SERVER_USER }}
+          SOURCE: "public/"
+          TARGET: ${{ secrets.SERVER_DESTINATION }}
+          ARGS: "-rltgoDzv --delete"
