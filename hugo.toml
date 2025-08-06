@@ -188,7 +188,9 @@ title = "猿客随笔"
   # 这是显示在浏览器标签页上的小图标，是网站品牌的重要组成部分。
   [params.app]
     # 推荐使用 SVG 格式的图标，因为它清晰且体积小。放在 `static` 目录下。
-	#noFavicon = false
+    enable = true
+	  #noFavicon = false
+    manifest = "/blog/site.webmanifest"
     svgFavicon  = "/blog/favicon.svg" # 【推荐创建此SVG图标】
     # Android 浏览器中地址栏的颜色
     themeColor = "#ffffff"
