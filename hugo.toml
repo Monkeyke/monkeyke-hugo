@@ -214,7 +214,27 @@ title = "猿客随笔"
     author = true         # 是否显示作者名
     since = 2024          # 网站创立年份
     # ICP 备案号 (仅中国大陆网站需要)
-    icp = "皖ICP备2024059714号-1"
+    icp = '<a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">皖ICP备2024059714号-1</a>'
+     # 【新增】自定义页脚内容，用于添加公安备案
+  custom = '''
+    <style>
+        a.gongan-link:hover p {
+        color: #58abca !important; /* 鼠标悬停时，文字颜色变深 */
+      }
+    </style>
+    <a target="_blank" 
+       class="gongan-link"
+       href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=34152402000293" 
+       style="display: inline-flex; align-items: center; text-decoration: none; margin-left: 10px;">
+        
+        <img src="/blog/images/ga.svg" style="width:20px; height:20px; margin-right: 5px;"/>
+        
+        <p style="margin: 0; color:#312e26;">
+            皖公网安备 34152402000293号
+        </p>
+    </a>
+  '''
+
     # 网站内容许可协议，这里的示例是 "CC BY-NC 4.0"
     license = '<a rel="license external nofollow noopener norefferer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a>'
 
@@ -222,10 +242,9 @@ title = "猿客随笔"
   [params.home.profile]
     enable = true
     # 优先使用 Gravatar 头像
-	# 【重要】使用国内镜像地址，解决 Gravatar 访问问题
-	#gravatarHost = "https://cn.cravatar.com/avatar"
+    # 【重要】使用国内镜像地址，解决 Gravatar 访问问题
+    #gravatarHost = "https://cn.cravatar.com/avatar"
     #gravatarEmail = "admin@monkeyke.com"
-   
     avatarURL = "/blog/images/avatar.png" # 这是备用本地头像，建议只保留一种，注释掉此行
     social = true       # 是否在个人信息下显示社交链接
     #disclaimer = "欢迎来到我的个人博客！" # 可以在头像下显示一行免责声明或欢迎语
@@ -280,12 +299,12 @@ title = "猿客随笔"
       X = true
       Facebook = true
       Weibo = true
-      Telegram = true
+      Telegram = false
 
     # -- 评论系统配置 --
     # 推荐使用 Giscus，它基于 GitHub Discussions，无广告、安全、配置简单。
     [params.page.comment]
-      enable = true # 评论功能的总开关
+      enable = false # 评论功能的总开关
       [params.page.comment.giscus]
         enable = true
         # 你的公开 GitHub 仓库，格式为 "用户名/仓库名"
@@ -333,3 +352,5 @@ title = "猿客随笔"
   section = ["HTML", "RSS"]       # 分区页(如/posts/)：生成HTML、RSS
   taxonomy = ["HTML", "RSS"]      # 分类法页(如/tags/): 生成HTML、RSS
   taxonomyTerm = ["HTML"]         # 分类法具体条目页(如/tags/java/): 生成HTML
+
+
