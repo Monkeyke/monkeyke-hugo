@@ -327,10 +327,11 @@ title = "猿客随笔"
 # 通常保持默认即可。
 # -------------------------------------------------------------------
 [outputs]
-  home = ["HTML", "RSS", "JSON"]  # 主页：生成HTML、RSS订阅文件、JSON搜索索引
-  page = ["HTML", "JSON"]         # 文章页：生成HTML、JSON搜索索引
-  section = ["HTML", "RSS"]       # 分区页(如/posts/)：生成HTML、RSS
-  taxonomy = ["HTML", "RSS"]      # 分类法页(如/tags/): 生成HTML、RSS
-  taxonomyTerm = ["HTML"]         # 分类法具体条目页(如/tags/java/): 生成HTML
+  home = ["HTML", "RSS", "JSON"]
+  page = ["HTML", "JSON"]
+  section = ["HTML", "RSS"]
+  # 新版 Hugo 中, "taxonomy" 会同时控制列表页 (如 /tags/) 和详情页 (如 /tags/spring/)
+  # 我们告诉它，这两种页面都要生成 HTML 和 RSS
+  taxonomy = ["HTML", "RSS"]
 
 
