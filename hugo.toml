@@ -303,28 +303,6 @@ title = "猿客随笔"
       Weibo = true
       Telegram = false
 
-    # -- 评论系统配置 --
-    # 推荐使用 Giscus，它基于 GitHub Discussions，无广告、安全、配置简单。
-    [params.page.comment]
-      enable = false # 评论功能的总开关
-      [params.page.comment.giscus]
-        enable = true
-        # 你的公开 GitHub 仓库，格式为 "用户名/仓库名"
-        repo = "monkeyke/monkeyke-hugo" # 【请修改】
-        # 仓库的 ID，从 Giscus 官网获取
-        repoId = "你的Repo_ID" # 【请修改】
-        # 你希望用来存放评论的 Discussion 分类
-        category = "Announcements" # 【请修改】
-        # 分类的 ID，从 Giscus 官网获取
-        categoryId = "你的Category_ID" # 【请修改】
-        lang = "zh-CN"
-        mapping = "pathname"
-        reactionsEnabled = "1"
-        emitMetadata = "0"
-        inputPosition = "bottom"
-        lazyLoading = true
-        lightTheme = "light"
-        darkTheme = "dark"
 
   # -- CDN 配置 --
   # 用于加载主题的 JS/CSS 等静态资源。使用 CDN 可以加快全球访问速度。
@@ -337,12 +315,6 @@ title = "猿客随笔"
     # Google Analytics，用于追踪网站流量
     [params.analytics.google]
       id = "" # 【可选】在这里填入你的 Google Analytics Measurement ID (G-XXXXXXXXXX)
-	# Umami Analytics - 自托管的网站统计
-	[params.analytics.umami]
-	  # 你的 Umami 跟踪脚本的 URL
-	  src = "https://umami.monkeyke.com/script.js"
-	  # 你的 Umami 网站 ID
-	  dataWebsiteId = "e10d79bb-3948-4e22-b333-292e931ae2d0"
   [params.verification]
     # 用于向各大搜索引擎验证你对网站的所有权
     google = "" # 【可选】Google Search Console 的验证码

@@ -1,0 +1,22 @@
+{{- $params := .Scratch.Get "params" -}}
+
+<meta name="Description" content="{{ $params.description | default .Site.Params.description }}">
+
+{{- template "_internal/opengraph.html" . -}}
+{{- template "_internal/twitter_cards.html" . -}}
+
+<meta name="application-name" content="{{ .Site.Params.app.title | default .Site.Title }}">
+<meta name="apple-mobile-web-app-title" content="{{ .Site.Params.app.title | default .Site.Title }}">
+
+{{- with .Site.Params.app.themeColor -}}
+    <meta name="theme-color" content="{{ . }}">
+{{- end -}}
+
+{{- with .Site.Params.app.tileColor -}}
+    <meta name="msapplication-TileColor" content="{{ . }}">
+{{- end -}}
+
+
+{{- /* ... meta.html 文件原来的所有内容 ... */ -}}
+<!-- Umami Analytics -->
+<script async src="https://umami.monkeyke.com/script.js" data-website-id="e10d79bb-3948-4e22-b333-292e931ae2d0"></script>
