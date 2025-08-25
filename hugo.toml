@@ -337,6 +337,12 @@ title = "猿客随笔"
     # Google Analytics，用于追踪网站流量
     [params.analytics.google]
       id = "" # 【可选】在这里填入你的 Google Analytics Measurement ID (G-XXXXXXXXXX)
+	# Umami Analytics - 自托管的网站统计
+	[params.analytics.umami]
+	  # 你的 Umami 跟踪脚本的 URL
+	  src = "https://umami.monkeyke.com/script.js"
+	  # 你的 Umami 网站 ID
+	  dataWebsiteId = "e10d79bb-3948-4e22-b333-292e931ae2d0"
   [params.verification]
     # 用于向各大搜索引擎验证你对网站的所有权
     google = "" # 【可选】Google Search Console 的验证码
