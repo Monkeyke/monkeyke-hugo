@@ -66,28 +66,28 @@ title = "猿客随笔"
         name = "文章"
         # pre 字段用于放置图标
         pre = "<i class='fa-solid fa-archive fa-fw'></i>"
-        url = "/posts/"
+        url = "posts/"
         weight = 1
 
       [[languages."zh-cn".menu.main]]
         identifier = "tags"
         name = "标签"
         pre = "<i class='fa-solid fa-tags fa-fw'></i>"
-        url = "/tags/"
+        url = "tags/"
         weight = 2
 
       [[languages."zh-cn".menu.main]]
         identifier = "categories"
         name = "分类"
         pre = "<i class='fa-solid fa-folder-tree fa-fw'></i>"
-        url = "/categories/"
+        url = "categories/"
         weight = 3
 
       [[languages."zh-cn".menu.main]]
         identifier = "about"
         name = "关于我"
         pre = "<i class='fa-solid fa-user-tie fa-fw'></i>"
-        url = "/about/"
+        url = "about/"
         weight = 4
 
     # [中文环境] 主题参数，用于覆盖全局 [params] 中的同名设置
@@ -126,25 +126,25 @@ title = "猿客随笔"
         identifier = "posts"
         name = "Posts"
         pre = "<i class='fa-solid fa-archive fa-fw'></i>"
-        url = "/posts/"
+        url = "posts/"
         weight = 1
       [[languages.en.menu.main]]
         identifier = "tags"
         name = "Tags"
         pre = "<i class='fa-solid fa-tags fa-fw'></i>"
-        url = "/tags/"
+        url = "tags/"
         weight = 2
       [[languages.en.menu.main]]
         identifier = "categories"
         name = "Categories"
         pre = "<i class='fa-solid fa-folder-tree fa-fw'></i>"
-        url = "/categories/"
+        url = "categories/"
         weight = 3
       [[languages.en.menu.main]]
         identifier = "about"
         name = "About"
         pre = "<i class='fa-solid fa-user-tie fa-fw'></i>"
-        url = "/about/"
+        url = "about/"
         weight = 4
     [languages.en.params]
       description = "Sharing tech, thoughts, and life."
@@ -182,7 +182,7 @@ title = "猿客随笔"
   # -- 全局作者信息 --
   [params.author]
     email = "contact@monkeyke.com"
-    link = "/about/" # 点击作者名时跳转的链接
+    link = "/blog/about/" # 点击作者名时跳转的链接
 
   # -- 应用图标配置 (Favicon) --
   # 这是显示在浏览器标签页上的小图标，是网站品牌的重要组成部分。
