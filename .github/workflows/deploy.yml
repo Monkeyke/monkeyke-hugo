@@ -1,23 +1,19 @@
 # Workflow 名称
 name: Deploy Hugo Site to Server
 
-# 触发条件
 on:
-  # 【修改点 1】当推送到 master 分支时触发
   push:
     branches:
-      - master  
-  # 允许手动触发
+      - master
   workflow_dispatch:
 
-# 定义任务
 jobs:
   build-and-deploy:
-    # 运行环境
+    # 使用你已经成功部署的自托管 Docker Runner
     runs-on: self-hosted
 
     steps:
-      # 步骤 1: 拉取代码 (不再需要任何代理)
+      # 步骤 1: 拉取代码
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
@@ -27,24 +23,39 @@ jobs:
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v3
         with:
-          # 【修改点 2】使用最新的 Hugo 版本
-          hugo-version: 'latest' 
-          # 依然需要 extended 版本，因为 LoveIt 主题需要
+          hugo-version: 'latest'
           extended: true 
 
       # 步骤 3: 构建 Hugo 网站
       - name: Build Hugo site
-        # 使用 -b 参数明确指定 baseURL，确保子目录链接正确
-        # 使用 vars.HUGO_BASE_URL 是更灵活的做法
         run: hugo --minify -b ${{ vars.HUGO_BASE_URL || 'https://monkeyke.com/blog/' }}
 
-      # 步骤 4: 部署到服务器
-      - name: Deploy to Server via rsync
-        uses: easingthemes/ssh-deploy@v5.0.0
+      # 步骤 4: 【关键】将构建好的文件从容器内“传递”到宿主机
+      # 我们将利用之前映射出来的卷 /home/runner-cache
+      - name: Copy build to host volume
+        run: |
+          # 我们把 public 文件夹复制到工作目录里，这个工作目录被映射到了服务器的 /home/runner-cache
+          cp -a public/. /home/github/actions-runner/_work/public_build/
+          
+      # 步骤 5: 【关键】使用 SSH 在宿主机上执行部署和权限修改
+      # 这一步会像一个“遥控器”，登录到你自己的服务器，执行命令
+      - name: Deploy and Set Permissions on Host
+        uses: appleboy/ssh-action@master
         with:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          REMOTE_HOST: ${{ secrets.SERVER_HOST }}
-          REMOTE_USER: ${{ secrets.SERVER_USER }}
-          SOURCE: "public/"
-          TARGET: ${{ secrets.SERVER_DESTINATION }}
-          ARGS: "-rltgoDzv --delete"
+          # 主机地址写 127.0.0.1，因为 Runner 容器和宿主机在同一个网络里
+          host: 172.17.0.1 # 使用我们之前确定的 docker0 网关地址
+          # 我们需要一个新的低权限用户，比如之前创建的 deployer
+          username: ${{ secrets.DEPLOY_USER }}
+          key: ${{ secrets.DEPLOY_KEY }}
+          script: |
+            echo "Starting deployment on host..."
+            # 从映射的目录，将文件同步到网站根目录
+            rsync -av --delete /home/runner-cache/public_build/ /www/wwwroot/monkeyke/blog/
+            # 【关键】现在是在宿主机上，以 deployer 身份执行 sudo
+            # 这要求你的 deployer 用户有免密 sudo 权限
+            sudo chown -R www:www /www/wwwroot/monkeyke/blog
+            sudo find /www/wwwroot/monkeyke/blog -type d -exec chmod 755 {} \;
+            sudo find /www/wwwroot/monkeyke/blog -type f -exec chmod 644 {} \;
+            # 清理缓存的构建文件
+            rm -rf /home/runner-cache/public_build/*
+            echo "Deployment and permission fix finished successfully!"
